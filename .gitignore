@@ -1,0 +1,5 @@
+# git 上传时忽略文件
+node_modules
+.idea
+.vscode
+.git
