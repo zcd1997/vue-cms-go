@@ -47,8 +47,18 @@ module.exports = {
             //配置处理 less 文件
             { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
             //配置处理 less 文件
-            { test: /\.(jpg|png|gif|jpeg)$/, use: 'url-loader?limit=22&name=[path]-[name].[ext]' },
-            // 配置处理url
+            {
+                test: /\.(png|jpg|gif|jpeg)$/,
+                use: [{
+                  loader: 'url-loader',
+                  // loader: 'file-loader',
+                  options: {
+                    esModule: false, // 这里设置为false
+                    name: '[name].[ext]',
+                    limit: 10240
+                  }
+                }]
+              },         // 配置处理url
             // limit 给的值是图片的大小，单位是 字节 byte 
             { test: /\.(ttf|eot|svg|woff|woff2)$/, use: 'url-loader' },
             // 处理字体文件的配置
