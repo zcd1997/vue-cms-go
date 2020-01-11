@@ -27,9 +27,6 @@ import './lib/mui/css/mui.min.css'
 import './lib/mui/css/icons-extra.css'
 
 
-
-
-
 var vm = new Vue({
 
     el: '#app',
