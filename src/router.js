@@ -8,6 +8,8 @@ import ShopCar from './components/tabber/ShopCar.vue'
 import Search from './components/tabber/Search.vue'
 import NewsList from './components/news/NewList.vue'
 import NewsInfo from './components/news/NewsInfo.vue'
+import PhotoList from './components/photo/PhotoList.vue'
+
 
 var router = new VueRouter({
     routes: [
@@ -20,6 +22,7 @@ var router = new VueRouter({
         { path: '/home/newlist', component: NewsList },
         // 匹配id时候，这么做，表示为参数
         { path: '/home/newsinfo/:id', component: NewsInfo },
+        { path: '/home/photolist', component: PhotoList }
     ],
     linkActiveClass: 'mui-active' //覆盖默认路由高亮的类
 })

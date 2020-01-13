@@ -2,14 +2,14 @@
   <div class="cmt-container">
     <h3>发表评论</h3>
     <hr />
-    <textarea placeholder="最多输入140个字" maxlength="140"></textarea>
-    <mt-button type="primary" size="large">发表评论</mt-button>
+    <textarea placeholder="最多输入140个字" maxlength="140" v-model="msg"></textarea>
+    <mt-button type="primary" size="large" @click="postCmt">发表评论</mt-button>
     <div class="cmt-list" v-for="(item,i) in comments" :key="i">
       <div class="cmt-item">
-        <div class="cmt-title">第{{i+1}}楼&nbsp;&nbsp;用户：{{item.user_name}}&nbsp;&nbsp;发表时间:{{item.add_time | dateFormat}}</div>
-        <div class="cmt-body">
-            {{item.content === 'undefined' ? '' : item.content}}
-        </div>
+        <div
+          class="cmt-title"
+        >第{{i+1}}楼&nbsp;&nbsp;用户：{{item.user_name}}&nbsp;&nbsp;发表时间:{{item.add_time | dateFormat}}</div>
+        <div class="cmt-body">{{item.content === 'undefined' ? '' : item.content}}</div>
       </div>
     </div>
     <mt-button type="danger" size="large" plain @click="getMorecmt">加载更多</mt-button>
@@ -27,6 +27,7 @@ export default {
       pageIndex: 1,
       // 默认展示第一页
       comments: [],
+      msg: "" //评论内容
     };
   },
   created() {
@@ -47,9 +48,30 @@ export default {
           }
         });
     },
-    getMorecmt(){
-        this.pageIndex+=1;
-        this.getComments();
+    getMorecmt() {
+      this.pageIndex += 1;
+      this.getComments();
+    },
+    postCmt() {
+      if (this.msg.trim().length === 0) {
+        return Toast("评论内容不能为空");
+      }
+      this.$http
+        .post("api/postcomment/" + this.id, {
+          content: this.msg.trim()
+        })
+        .then(result => {
+          if (result.body.status === 0) {
+            // 拼接一个评论对象
+            var cmt = {
+              user_name: "匿名用户",
+              add_time: Date.now(),
+              content:this.msg.trim()
+            };
+            this.comments.unshift(cmt)
+            this.msg = ''
+          }
+        });
     }
   },
   props: ["id"]
@@ -64,7 +86,7 @@ export default {
   }
   textarea {
     font-size: 14px;
-    height: 55px;
+    height: 80px;
     margin: 0;
   }
   .cmt-list {

@@ -60,3 +60,28 @@
 ##实现点击加载更多评论
 1.给加载更多按钮绑定事件，请求下一页数据
 2.对新请求的数据，对数据进行拼接
+
+
+##发表评论
+1.吧文本框做双向数据绑定
+2.为按钮添加事件
+3.校验评论内容
+4.发送请求，吧评论内容给服务器
+
+
+##图片列表
+
+导入 mui.js 后，出现错误：
+'caller', 'callee', and 'arguments' properties may not be accessed on strict mode functions or the arguments objects for calls to them
+
+可能原因：webpack 打包，默认启用严格模式
+解决方法：移除严格模式 
+        "babel-plugin-transform-remove-strict-mode"
+        在.babelrc 中配置  "transform-remove-strict-mode"
+
+
+##图片分类
+    处理类  ：class = ['表达式']
+
+##图片列表
+1.图片懒加载   mint-ui  lazy-loader
