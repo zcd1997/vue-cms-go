@@ -85,3 +85,12 @@
 
 ##图片列表
 1.图片懒加载   mint-ui  lazy-loader
+
+
+##图片详情
+改造成 router-link 后 需要 用 tag 属性指定渲染的元素
+
+
+##缩略图
+使用vue-preview
+缩略图的样式。应该是全局样式中配置

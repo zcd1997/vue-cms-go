@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>shopcar组件</h3>
+        <h3>shopcar组件6666</h3>
     </div>
 </template>
 

@@ -14,6 +14,10 @@ Vue.http.options.root = 'http://www.liulongbin.top:3005/'
 // 设置post请求时，表单数据格式
 Vue.http.options.emulateJSON = true;
 
+// 配置vue-preview 图片预览插件
+import VuePreview from 'vue-preview';
+Vue.use(VuePreview);
+
 import moment from 'moment'
 // 定义全局的过滤器
 Vue.filter('dateFormat', function (dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
