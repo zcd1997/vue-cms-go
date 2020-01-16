@@ -1,8 +1,8 @@
 <template>
   <div class="goodinfo-containter">
     <!-- 小球运动 -->
-    <transition @before-enter='beforeEnter' @enter="enter" @after-enter='afterEnter'>
-      <div class="ball" v-show="ballFlag" ref='ball'></div>
+    <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+      <div class="ball" v-show="ballFlag" ref="ball"></div>
     </transition>
 
     <!-- 商品图片轮播图 -->
@@ -25,7 +25,7 @@
           </p>
           <p>
             购买数量:
-            <goodinfo_num @getcount='getCount' :maxcount='goodinfo.stock_quantity'></goodinfo_num>
+            <goodinfo_num @getcount="getCount" :maxcount="goodinfo.stock_quantity"></goodinfo_num>
           </p>
           <p>
             <mt-button type="primary" size="small">立即购买</mt-button>
@@ -67,7 +67,7 @@ export default {
       goodinfo: [],
       //   控制小球的
       ballFlag: false,
-      count:1
+      count: 1
     };
   },
   created() {
@@ -100,31 +100,41 @@ export default {
     },
     addToShopcar() {
       this.ballFlag = !this.ballFlag;
+      // 拼接处一个保存到 store中的一个商品信息对象
+      var goodinfo = {
+        id: this.id,
+        count: this.count,
+        price: this.goodinfo.sell_price,
+        selected: true
+      };
+      this.$store.commit("addToCar", goodinfo);
     },
-    getCount(count){
+    getCount(count) {
       // 获取购买数量
       // 使用子向父 传参思路
-      this.count = count
-      console.log(this.count)
+      this.count = count;
+      console.log(this.count);
     },
-    beforeEnter(el){
-        el.style.transform = 'translate(0,0)'
+    beforeEnter(el) {
+      el.style.transform = "translate(0,0)";
     },
-    enter(el,done){
-        el.offsetWidth;
-        const ballPosition = this.$refs.ball.getBoundingClientRect()
-        const badgePosition = document.getElementById('badge').getBoundingClientRect()
-        // 分析原因 位置是写死的
-        // 解决方法  domobject.getBoundingClientRect
+    enter(el, done) {
+      el.offsetWidth;
+      const ballPosition = this.$refs.ball.getBoundingClientRect();
+      const badgePosition = document
+        .getElementById("badge")
+        .getBoundingClientRect();
+      // 分析原因 位置是写死的
+      // 解决方法  domobject.getBoundingClientRect
 
-        const xP=badgePosition.left - ballPosition.left
-        const yP=badgePosition.top - ballPosition.top
-        el.style.transform = `translate(${xP}px,${yP}px)`
-        el.style.transition = 'all 0.5s ease'
-        done();
+      const xP = badgePosition.left - ballPosition.left;
+      const yP = badgePosition.top - ballPosition.top;
+      el.style.transform = `translate(${xP}px,${yP}px)`;
+      el.style.transition = "all 0.5s ease";
+      done();
     },
-    afterEnter(el){
-        this.ballFlag = !this.ballFlag
+    afterEnter(el) {
+      this.ballFlag = !this.ballFlag;
     }
   },
   components: {

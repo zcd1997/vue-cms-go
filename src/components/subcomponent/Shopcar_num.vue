@@ -1,14 +1,14 @@
 <template>
-  <!-- 这里的问题 max:undefined 我们不知道什么时候拿到max -->
-  <div class="mui-numbox" data-numbox-min="1">
+  <div class="mui-numbox" data-numbox-min="1" style="height:25px;">
     <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
     <input
       id="test"
       class="mui-input-numbox"
       type="number"
-      value="1"
+      :value="goodscount"
       @change="countChange"
       ref="count"
+      readonly
     />
     <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
   </div>
@@ -31,23 +31,10 @@ export default {
   methods: {
     countChange() {
       // console.log(this.$refs.count.value)
-      this.$emit("getcount", parseInt(this.$refs.count.value));
+    this.$store.commit('updateGoodCount',{id:this.goodid,count:this.$refs.count.value})
     }
   },
-  props: ["maxcount"],
-  watch: {
-    // 属性监听
-    // "maxcount":
-    //   function(newVal,oldVal){
-    //   console.log('6666')
-    //   mui('.mui-numbox').numbox().setOption("max",newVal)
-    // },
-    maxcount: function(newVal, oldVal) {
-      mui(".mui-numbox")
-        .numbox()
-        .setOption("max", newVal);
-    }
-  }
+  props:['goodscount','goodid']
 };
 </script>
 
